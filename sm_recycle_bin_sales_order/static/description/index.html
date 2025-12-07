@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recycle Bin - Sales Order</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 40px;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        /* Screenshot Section */
+        .screenshot-section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        .screenshot {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .screenshot h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .screenshot img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .screenshot p {
+            margin-top: 12px;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        /* Tracked Info */
+        .tracked-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+        .tracked-info h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .info-item span {
+            margin-left: 10px;
+        }
+        
+        /* Technical Section */
+        .tech-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 30px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .tech-section h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .tech-list {
+            list-style: none;
+        }
+        .tech-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .tech-list li:last-child {
+            border-bottom: none;
+        }
+        .tech-list li::before {
+            content: '✓';
+            color: #4ade80;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .footer p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .version {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🗑️ Recycle Bin - Sales Order</h1>
+            <p>Track and audit all deleted Sales Orders with complete information including IP address, user details, and deletion timestamp</p>
+            <span class="badge">Odoo 18 Enterprise & Community</span>
+        </div>
+
+        <!-- Screenshots Section -->
+        <div class="screenshot-section">
+            <h2 class="section-title">Screenshots</h2>
+            
+            <div class="screenshot">
+                <h4>📍 Menu Location</h4>
+                <img src="/sm_recycle_bin_sales_order/static/description/menu.jpeg" alt="Recycle Bin Menu Location"/>
+                <p>Access the Recycle Bin from <strong>Sales → Configuration → Recycle Bin</strong>. Only Sales Managers can view this menu.</p>
+            </div>
+            
+            <div class="screenshot">
+                <h4>📊 List View</h4>
+                <img src="/sm_recycle_bin_sales_order/static/description/list.jpeg" alt="Recycle Bin List View"/>
+                <p>View all deleted Sales Orders in a comprehensive list with SO number, customer, amount, deletion date, user who deleted, and IP address. Use filters to find deletions by date, user, or IP.</p>
+            </div>
+            
+            <div class="screenshot">
+                <h4>📝 Form View</h4>
+                <img src="/sm_recycle_bin_sales_order/static/description/form.jpeg" alt="Recycle Bin Form View"/>
+                <p>Detailed view of a deleted Sales Order showing complete information including original order lines summary, user agent, and deletion timestamp.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

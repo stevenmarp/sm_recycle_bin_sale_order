@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sm_recycle_bin_sales_order_user,sm.recycle.bin.sales.order.user,model_sm_recycle_bin_sales_order,sales_team.group_sale_salesman,1,0,0,0
+access_sm_recycle_bin_sales_order_manager,sm.recycle.bin.sales.order.manager,model_sm_recycle_bin_sales_order,sales_team.group_sale_manager,1,1,1,1

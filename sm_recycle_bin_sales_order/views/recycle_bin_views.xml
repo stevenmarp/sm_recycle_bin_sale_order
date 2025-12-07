@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- list View -->
+    <record id="view_sm_recycle_bin_sales_order_list" model="ir.ui.view">
+        <field name="name">sm.recycle.bin.sales.order.list</field>
+        <field name="model">sm.recycle.bin.sales.order</field>
+        <field name="arch" type="xml">
+            <list string="Deleted Sales Orders" decoration-danger="state == 'Cancelled'" decoration-warning="state == 'Draft'">
+                <field name="so_name" string="SO Number"/>
+                <field name="partner_name" string="Customer"/>
+                <field name="date_order"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" string="Status (Before)"/>
+                <field name="delete_date" string="Deleted On"/>
+                <field name="deleted_by_name" string="Deleted By"/>
+                <field name="ip_address"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_sm_recycle_bin_sales_order_form" model="ir.ui.view">
+        <field name="name">sm.recycle.bin.sales.order.form</field>
+        <field name="model">sm.recycle.bin.sales.order</field>
+        <field name="arch" type="xml">
+            <form string="Deleted Sales Order" create="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="so_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Sales Order Info">
+                            <field name="so_id" string="Original ID"/>
+                            <field name="partner_id"/>
+                            <field name="partner_name"/>
+                            <field name="date_order"/>
+                            <field name="amount_total"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="state" string="Status (Before Delete)"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Deletion Info">
+                            <field name="delete_date"/>
+                            <field name="deleted_by_id"/>
+                            <field name="deleted_by_name"/>
+                            <field name="ip_address"/>
+                            <field name="user_agent"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines" name="order_lines">
+                            <group>
+                                <field name="order_lines_count" string="Total Lines"/>
+                            </group>
+                            <field name="order_lines_summary" readonly="1" widget="text"/>
+                        </page>
+                        <page string="Additional Info" name="additional">
+                            <group>
+                                <field name="deletion_reason"/>
+                                <field name="note"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_sm_recycle_bin_sales_order_search" model="ir.ui.view">
+        <field name="name">sm.recycle.bin.sales.order.search</field>
+        <field name="model">sm.recycle.bin.sales.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Deleted Sales Orders">
+                <field name="so_name"/>
+                <field name="partner_name"/>
+                <field name="deleted_by_name"/>
+                <field name="ip_address"/>
+                <separator/>
+                <filter name="today" string="Deleted Today" domain="[('delete_date', '>=', (context_today()).strftime('%Y-%m-%d 00:00:00')), ('delete_date', '&lt;=', (context_today()).strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter name="this_week" string="This Week" domain="[('delete_date', '>=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+                <filter name="this_month" string="This Month" domain="[('delete_date', '>=', (context_today()).strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="Deleted By" context="{'group_by': 'deleted_by_id'}"/>
+                    <filter name="group_by_date" string="Delete Date" context="{'group_by': 'delete_date:day'}"/>
+                    <filter name="group_by_ip" string="IP Address" context="{'group_by': 'ip_address'}"/>
+                    <filter name="group_by_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_by_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_sm_recycle_bin_sales_order" model="ir.actions.act_window">
+        <field name="name">Recycle Bin - Sales Orders</field>
+        <field name="res_model">sm.recycle.bin.sales.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sm_recycle_bin_sales_order_search"/>
+        <field name="context">{'search_default_this_month': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No deleted Sales Orders found
+            </p>
+            <p>
+                When a Sales Order is deleted, it will appear here with details about who deleted it, when, and from which IP address.
+            </p>
+        </field>
+    </record>
+</odoo>

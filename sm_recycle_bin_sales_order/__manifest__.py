@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Recycle Bin - Sales Order',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Sales',
     'summary': 'Track deleted Sales Orders with user info, IP address, and deletion details',
     'description': '''
